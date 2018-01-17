@@ -8,5 +8,5 @@ setup(name='psdm_qs_cli',
       author_email='mshankar@slac.stanford.edu',
       license='MIT',
       packages=['qs_cli'],
-      scripts=['qs_cli/cool', 'qs_cli/skype',]
+      scripts=['qs_cli/QSGenerateExcelSpreadSheet.py', 'qs_cli/QSGenerateJSON.py',],
       zip_safe=False)
