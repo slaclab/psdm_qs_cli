@@ -1,0 +1,27 @@
+package:
+  name: psdm_qs_cli
+  version: "0.0.1"
+
+source:
+  git_url: https://github.com/slaclab/psdm_qs_cli.git
+  git_tag: "0.0.1"
+
+build:
+  script:
+    - pip install --no-deps --disable-pip-version-check .
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - krtc
+    - requests
+  run:
+    - python
+    - setuptools
+    - krtc
+    - requests
+
+about:
+  home: https://github.com/slaclab/krtc.git
+  license: MIT License
