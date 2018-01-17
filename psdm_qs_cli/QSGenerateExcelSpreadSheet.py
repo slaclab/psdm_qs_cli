@@ -11,7 +11,8 @@ XRay Techniques to be used (xraytech-tech-1)
 
 import argparse
 from openpyxl import Workbook
-from qs_cli import QuestionnaireClient
+
+from psdm_qs_cli import QuestionnaireClient
 
 
 def generateExcelSpreadSheetForRun(qs, run, excelFilePath):

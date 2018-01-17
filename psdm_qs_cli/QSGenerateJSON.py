@@ -3,8 +3,9 @@
 '''
 
 import argparse
-from qs_cli import QuestionnaireClient
 import json
+
+from psdm_qs_cli import QuestionnaireClient
 
 
 def generateJSONDocumentForRun(qs, run, useLabels, jsonFilePath):
