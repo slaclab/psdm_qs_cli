@@ -3,7 +3,7 @@
 '''
 
 import argparse
-from QuestionnaireClient import QuestionnaireClient
+from qs_cli import QuestionnaireClient
 import json
 
 
