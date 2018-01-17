@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='psdm_qs_cli',
-      version='0.1',
+      version='0.0.5',
       description='Python client for interacting with the PCDS questionnaire.',
       url='https://github.com/slaclab/psdm_qs_cli.git',
       author='Murali Shankar',
