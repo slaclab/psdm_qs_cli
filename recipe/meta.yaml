@@ -16,11 +16,13 @@ requirements:
     - setuptools
     - krtc
     - requests
+    - six
   run:
     - python
     - setuptools
     - krtc
     - requests
+    - six
 
 about:
   home: https://github.com/slaclab/psdm_qs_cli.git
