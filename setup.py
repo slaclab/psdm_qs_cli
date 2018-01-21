@@ -1,7 +1,9 @@
+import versioneer
 from setuptools import setup
 
 setup(name='psdm_qs_cli',
-      version='0.0.5',
+      version=versioneer.get_version(),
+      cmdclass=versioneer.get_cmdclass(),
       description='Python client for interacting with the PCDS questionnaire.',
       url='https://github.com/slaclab/psdm_qs_cli.git',
       author='Murali Shankar',

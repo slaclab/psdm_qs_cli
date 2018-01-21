@@ -1,14 +1,14 @@
+{% set data = load_setup_py_data() %}
+
 package:
   name: psdm_qs_cli
-  version: "0.0.5"
+  version: {{ data.get('version') }}
 
 source:
-  git_url: https://github.com/slaclab/psdm_qs_cli.git
-  git_tag: "0.0.5"
+  path : ..
 
 build:
-  script:
-    - pip install --no-deps --disable-pip-version-check .
+  number: 1
 
 requirements:
   build:
@@ -16,11 +16,13 @@ requirements:
     - setuptools
     - krtc
     - requests
+    - six
   run:
     - python
     - setuptools
     - krtc
     - requests
+    - six
 
 about:
   home: https://github.com/slaclab/psdm_qs_cli.git

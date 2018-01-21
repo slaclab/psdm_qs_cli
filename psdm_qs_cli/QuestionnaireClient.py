@@ -7,7 +7,7 @@ import requests
 import datetime
 import logging
 from krtc import KerberosTicket
-from urllib.parse import urlparse
+from six.moves.urllib.parse import urlparse
 
 
 logger = logging.getLogger(__name__)
