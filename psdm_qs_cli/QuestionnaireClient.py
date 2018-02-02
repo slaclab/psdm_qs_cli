@@ -6,6 +6,10 @@ import json
 import requests
 import datetime
 import logging
+import getpass
+from functools import partial
+
+
 from krtc import KerberosTicket
 from six.moves.urllib.parse import urlparse
 
@@ -13,12 +17,41 @@ from six.moves.urllib.parse import urlparse
 logger = logging.getLogger(__name__)
 
 class QuestionnaireClient:
-    def __init__(self, questionnaire_url, use_kerberos=True):
-        self.questionnaire_url = questionnaire_url if questionnaire_url.endswith("/") else questionnaire_url + "/"
-        if(use_kerberos):
+    """
+    Interface to the LCLS Questionnaire
+
+    Parameters
+    ----------
+    url: str, optional
+        Provide a base URL for the Questionnaire. If left as None the
+        appropriate URL will be chosen based on your authentication method
+
+    use_kerberos: bool, optional
+        Use a Kerberos ticket to login to the Questionnaire. This is the
+        default authentication method
+
+    user: str, optional
+        A username for ws_auth sign-in. If not provided the current login name
+        is used
+    pw = str, optional
+        A password for ws_auth sign-in. If not provided a password will be
+        requested
+    """
+    kerb_url = 'https://pswww.slac.stanford.edu/ws-kerb/questionnaire/'
+    wsauth_url = "https://pswww.slac.stanford.edu/ws-auth/questionnaire/"
+
+    def __init__(self, url=None, use_kerberos=True, user=None, pw=None):
+        if use_kerberos:
+            self.questionnaire_url = url or self.kerb_url
             self.krbheaders = KerberosTicket("HTTP@" + urlparse(self.questionnaire_url).hostname).getAuthHeaders()
+            self.rget = partial(requests.get, headers=self.krbheaders)
         else:
-            self.krbheaders = {}
+            self.questionnaire_url = url or self.wsauth_url
+            # Find the login information if not provided
+            user = user or getpass.getuser()
+            pw = pw or getpass.getpass()
+            self.auth = requests.auth.HTTPBasicAuth(user, pw)
+            self.rget = partial(requests.get, auth=self.auth)
 
     def getEnumerations(self, run):
         """
@@ -26,7 +59,7 @@ class QuestionnaireClient:
         This returns a list of proposal value names that are comboboxes.
         :param: run - a run period (for example, run16)
         """
-        r = requests.get(self.questionnaire_url + "ws/questionnaire/" + run + "/get_enum_field_names", headers=self.krbheaders)
+        r = self.rget(self.questionnaire_url + "ws/questionnaire/" + run + "/get_enum_field_names")
         if r.status_code <= 299:
             return r.json()
         else:
@@ -37,7 +70,7 @@ class QuestionnaireClient:
         Get a list of proposals for a run period.
         :param: run - a run period (for example, run16)
         """
-        r = requests.get(self.questionnaire_url + "ws/questionnaire/experiments/" + run, headers=self.krbheaders)
+        r = self.rget(self.questionnaire_url + "ws/questionnaire/experiments/" + run)
         if r.status_code <= 299:
             experiments = r.json()
             # experiments is a list of dicts with instrument and proposal_id
@@ -73,7 +106,7 @@ class QuestionnaireClient:
         ret = {}
         ret['proposal_id'] = proposalid
         ret['Proposal'] = proposalid
-        r = requests.get(self.questionnaire_url + "ws/proposal/attribute/" + run + "/" + proposalid, headers=self.krbheaders)
+        r = self.rget(self.questionnaire_url + "ws/proposal/attribute/" + run + "/" + proposalid)
         if r.status_code <= 299:
             proposalData = r.json()
             # proposalData is a dict with list of dicts for the values
@@ -92,7 +125,7 @@ class QuestionnaireClient:
                 ret["Be-All"] = combined_be
         else:
             raise Exception("Invalid HTTP status code from server", r.status_code)
-        r = requests.get(self.questionnaire_url + "ws/questionnaire/urawidata/" + run + "/" + proposalid, headers=self.krbheaders)
+        r = self.rget(self.questionnaire_url + "ws/questionnaire/urawidata/" + run + "/" + proposalid)
         if r.status_code <= 299:
             urawiData = r.json()
             if urawiData['info']['startDate']:
@@ -119,10 +152,10 @@ class QuestionnaireClient:
         For example, xraytech-tech-1, xraytech-tech-2 etc will be mapped to "X-ray Techniques" as an array
         '''
         nameMappings = {}
-        tabNames = requests.get(self.questionnaire_url + "ws/questionnaire/" + run + "/tabnames", headers=self.krbheaders).json()
+        tabNames = self.rget(self.questionnaire_url + "ws/questionnaire/" + run + "/tabnames").json()
         for formTabName in tabNames:
             logger.info("Getting form data for %s", formTabName)
-            r = requests.get(self.questionnaire_url + "ws/questionnaire/" + run + "/form_data_definitions?form_name=" + formTabName, headers=self.krbheaders)
+            r = self.rget(self.questionnaire_url + "ws/questionnaire/" + run + "/form_data_definitions?form_name=" + formTabName)
             if r.status_code <= 299:
                 formDefinitions = r.json()
                 for formDefinition in formDefinitions:
@@ -141,7 +174,7 @@ class QuestionnaireClient:
         :param: run - a run period (for example, run16)
         :param: proposalid - the proposal id, (for example, LR01)
         """
-        r = requests.get(self.questionnaire_url + "ws/questionnaire/proposals_status/" + run, headers=self.krbheaders)
+        r = self.rget(self.questionnaire_url + "ws/questionnaire/proposals_status/" + run)
         if r.status_code <= 299:
             return r.json()['experiment_status']
         else:
@@ -153,7 +186,7 @@ class QuestionnaireClient:
         This is a special SLAC only tab containing the list of personnel for a proposal.
         :param: run - a run period (for example, run16)
         """
-        r = requests.get(self.questionnaire_url + "ws/questionnaire/proposals_personnel/" + run, headers=self.krbheaders)
+        r = self.rget(self.questionnaire_url + "ws/questionnaire/proposals_personnel/" + run)
         now = datetime.datetime.now()
         if r.status_code <= 299:
             datas = r.json()['proposals_personnel']
