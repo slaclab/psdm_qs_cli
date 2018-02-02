@@ -17,6 +17,26 @@ from six.moves.urllib.parse import urlparse
 logger = logging.getLogger(__name__)
 
 class QuestionnaireClient:
+    """
+    Interface to the LCLS Questionnaire
+
+    Parameters
+    ----------
+    url: str, optional
+        Provide a base URL for the Questionnaire. If left as None the
+        appropriate URL will be chosen based on your authentication method
+
+    use_kerberos: bool, optional
+        Use a Kerberos ticket to login to the Questionnaire. This is the
+        default authentication method
+
+    user: str, optional
+        A username for ws_auth sign-in. If not provided the current login name
+        is used
+    pw = str, optional
+        A password for ws_auth sign-in. If not provided a password will be
+        requested
+    """
     kerb_url = 'https://pswww.slac.stanford.edu/ws-kerb/questionnaire/'
     wsauth_url = "https://pswww.slac.stanford.edu/ws-auth/questionnaire/"
 
