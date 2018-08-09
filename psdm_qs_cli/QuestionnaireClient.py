@@ -204,3 +204,16 @@ class QuestionnaireClient:
             return datas
         else:
             raise Exception("Invalid HTTP status code from server", r.status_code)
+
+
+    def getExpName2URAWIProposalIDs(self):
+        """
+        Get the best guess for experiment name to URAWI proposal IDs.
+        Returns a dict of experiment name (xppi0915) to URAWI proposal ID (LI09).
+        The experiment name is what is used with the elog; the URAWI proposal ID is what is used with the questionnaire.
+        """
+        r = self.rget(self.questionnaire_url + "ws/questionnaire/getURAWIProposalIds")
+        if r.status_code <= 299:
+            return r.json()
+        else:
+            raise Exception("Invalid HTTP status code from server", r.status_code)
