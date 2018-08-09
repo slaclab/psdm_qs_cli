@@ -140,6 +140,7 @@ class QuestionnaireClient:
             self._updateIfExists(ret, urawiData, "info.spokesPerson.firstName", "Spokesperson First")
             self._updateIfExists(ret, urawiData, "info.spokesPerson.lastName", "Spokesperson Last")
             self._updateIfExists(ret, urawiData, "info.spokesPerson.email", "Spokesperson Email")
+            self._updateIfExists(ret, urawiData, "info.nonURAWI_proposal", "nonURAWI_proposal")
         else:
             raise Exception("Invalid HTTP status code from server", r.status_code)
         return ret
