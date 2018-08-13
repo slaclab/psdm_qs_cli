@@ -45,6 +45,7 @@ class QuestionnaireClient:
             self.questionnaire_url = url or self.kerb_url
             self.krbheaders = KerberosTicket("HTTP@" + urlparse(self.questionnaire_url).hostname).getAuthHeaders()
             self.rget = partial(requests.get, headers=self.krbheaders)
+            self.rpost = partial(requests.post, headers=self.krbheaders)
         else:
             self.questionnaire_url = url or self.wsauth_url
             # Find the login information if not provided
@@ -52,6 +53,7 @@ class QuestionnaireClient:
             pw = pw or getpass.getpass()
             self.auth = requests.auth.HTTPBasicAuth(user, pw)
             self.rget = partial(requests.get, auth=self.auth)
+            self.rpost = partial(requests.post, auth=self.auth)
 
     def getEnumerations(self, run):
         """
@@ -213,6 +215,19 @@ class QuestionnaireClient:
         The experiment name is what is used with the elog; the URAWI proposal ID is what is used with the questionnaire.
         """
         r = self.rget(self.questionnaire_url + "ws/questionnaire/getURAWIProposalIds")
+        if r.status_code <= 299:
+            return r.json()
+        else:
+            raise Exception("Invalid HTTP status code from server", r.status_code)
+
+    def updateProposalAttribute(self, run, proposal_id, attrname, attrvalue):
+        """
+        Updates the attribute specified by attrname to the value specified by attrvalue for the
+        proposal specified by proposal_id in the specified run.
+        Writes to the questionnaire do require authentication/authorization; so it's best to use Kerberos for this.
+        For example, qscli.updateProposalAttribute("run17", "LR63", "pcdssetup-motors-setup-1-purpose", "Value of purpose")
+        """
+        r = self.rpost(self.questionnaire_url + "ws/proposal/attribute/" + run + "/" + proposal_id, data={'run_id': run, 'id': attrname, 'val': attrvalue})
         if r.status_code <= 299:
             return r.json()
         else:
