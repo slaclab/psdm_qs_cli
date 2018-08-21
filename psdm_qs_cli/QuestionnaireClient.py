@@ -220,6 +220,17 @@ class QuestionnaireClient:
         else:
             raise Exception("Invalid HTTP status code from server", r.status_code)
 
+    def lookupByExperimentName(self, experiment_name):
+        """
+        Given an experiment name, try to get the best guess as to the proposal_id and run period.
+        """
+        r = self.rget(self.questionnaire_url + "ws/questionnaire/lookupByExperimentName", { "experiment_name": experiment_name } )
+        if r.status_code <= 299:
+            return r.json()
+        else:
+            raise Exception("Invalid HTTP status code from server", r.status_code)
+
+
     def updateProposalAttribute(self, run, proposal_id, attrname, attrvalue):
         """
         Updates the attribute specified by attrname to the value specified by attrvalue for the
