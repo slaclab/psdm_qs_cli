@@ -124,7 +124,7 @@ class QuestionnaireClient:
                     ret[repid] = "  ".join(("".join(_) for _ in tpls))
             combined_be = "\n".join(["{}:{}".format(fnl_be_attr, ret[fnl_be_attr]) for fnl_be_attr in ["Be-TOP", "Be-MID", "Be-BTM", "Be-AIR"] if fnl_be_attr in ret])
             if combined_be:
-                ret["Be-All"] = combined_be
+                ret["Be-All Beryllium Lens Stack Recipes"] = combined_be
         else:
             raise Exception("Invalid HTTP status code from server", r.status_code)
         r = self.rget(self.questionnaire_url + "ws/questionnaire/urawidata/" + run + "/" + proposalid)
