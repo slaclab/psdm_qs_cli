@@ -9,6 +9,11 @@ matrix:
     - python: 2.7
     - python: 3.5
     - python: 3.6
+# Modification needed (https://github.com/travis-ci/travis-ci/issues/9815)
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
 
 install:
   - sudo apt-get update
