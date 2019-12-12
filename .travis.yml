@@ -43,12 +43,12 @@ after_success:
     if [[ $TRAVIS_PULL_REQUEST == false && $TRAVIS_REPO_SLUG == $OFFICIAL_REPO && $TRAVIS_BRANCH == $TRAVIS_TAG  && $TRAVIS_TAG != '' && $CONDA_UPLOAD_TOKEN_TAG != '' ]]; then
       conda install anaconda-client
       export ANACONDA_API_TOKEN=$CONDA_UPLOAD_TOKEN_TAG
-      anaconda upload bld-dir/linux-64/*.tar.bz2
+      anaconda upload bld-dir/noarch/*.tar.bz2
     fi
 
   - |
     if [[ $TRAVIS_PULL_REQUEST == false && $TRAVIS_REPO_SLUG == $OFFICIAL_REPO && $TRAVIS_BRANCH == 'master' && $TRAVIS_TAG == '' && $CONDA_UPLOAD_TOKEN_DEV != '' ]]; then
       conda install anaconda-client
       export ANACONDA_API_TOKEN=$CONDA_UPLOAD_TOKEN_DEV
-      anaconda upload bld-dir/linux-64/*.tar.bz2
+      anaconda upload bld-dir/noarch/*.tar.bz2
     fi
