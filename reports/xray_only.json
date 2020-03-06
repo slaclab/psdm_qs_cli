@@ -1,0 +1,234 @@
+[
+    {
+        "attr": "instrument",
+        "label": "Instrument"
+    },
+    {
+        "attr": "StartDate",
+        "label": "Start Date"
+    },
+    {
+        "attr": "EndDate",
+        "label": "End Date"
+    },
+    {
+        "attr": "Approved",
+        "label": "Approved"
+    },
+    {
+    "attr": "personnel-poc-sci1",
+    "label": "Scientific POC lead"
+    },
+    {
+      "attr": "personnel-poc-sci2",
+      "label": "Scientific POC 2"
+    },
+    {
+      "attr": "personnel-poc-sci3",
+      "label": "Scientific POC 3"
+    },
+    {
+      "attr": "personnel-pcds-plan",
+      "label": "PCDS planning"
+    },
+    {
+      "attr": "personnel-pcds-setup",
+      "label": "PCDS setup"
+    },
+    {
+      "attr": "personnel-pcds-oncall",
+      "label": "PCDS on-call"
+    },
+    {
+      "attr": "personnel-laser",
+      "label": "Laser"
+    },
+    {
+      "attr": "personnel-det",
+      "label": "Detector"
+    },
+    {
+      "attr": "personnel-eng",
+      "label": "Engineering"
+    },
+    {
+      "attr": "personnel-sed-plan",
+      "label": "SED planning"
+    },
+    {
+      "attr": "personnel-sed-setup",
+      "label": "SED deployment"
+    },
+    {
+      "attr": "personnel-sed-oncall",
+      "label": "SED injector setup"
+    },
+    {
+      "attr": "personnel-other-1",
+      "label": "Other 1"
+    },
+    {
+      "attr": "personnel-other-2",
+      "label": "Other 2"
+    },
+    {
+        "attr": "xray-standard",
+        "label": "Standard Configuration"
+    },
+    {
+        "attr": "xray-multiplex",
+        "label": "Multiplexed"
+    },
+    {
+        "attr": "xray-mode",
+        "label": "X-ray mode"
+    },
+    {
+        "attr": "xray-mode-descr",
+        "label": "X-ray mode description"
+    },
+    {
+        "attr": "xray-reprate",
+        "label": "Repetition rate"
+    },
+    {
+        "attr": "xray-energy-1",
+        "label": "Photon energies 1"
+    },
+    {
+        "attr": "xray-energy-2",
+        "label": "Photon energies 2"
+    },
+    {
+        "attr": "xray-energy-3",
+        "label": "Photon energies 3"
+    },
+    {
+        "attr": "xray-energy-4",
+        "label": "Photon energies 4"
+    },
+    {
+        "attr": "xray-energy-5",
+        "label": "Photon energies 5"
+    },
+    {
+        "attr": "xray-energy-descr",
+        "label": "Photon energy description"
+    },
+    {
+        "attr": "xray-pulse-1",
+        "label": "Pulse durations 1"
+    },
+    {
+        "attr": "xray-pulse-2",
+        "label": "Pulse durations 2"
+    },
+    {
+        "attr": "xray-pulse-3",
+        "label": "Pulse durations 3"
+    },
+    {
+        "attr": "xray-pulse-4",
+        "label": "Pulse durations 4"
+    },
+    {
+        "attr": "xray-pulse-5",
+        "label": "Pulse durations 5"
+    },
+    {
+        "attr": "xray-pulse-descr",
+        "label": "Pulse description"
+    },
+    {
+        "attr": "xray-pulseenergy",
+        "label": "Pulse Energy"
+    },
+    {
+        "attr": "xray-focal-1",
+        "label": "Spot Size 1"
+    },
+    {
+        "attr": "xray-focal-2",
+        "label": "Spot Size 2"
+    },
+    {
+        "attr": "xray-focal-3",
+        "label": "Spot Size 3"
+    },
+    {
+        "attr": "xray-focal-4",
+        "label": "Spot Size 4"
+    },
+    {
+        "attr": "xray-focal-5",
+        "label": "Spot Size 5"
+    },
+    {
+        "attr": "xray-focal-descr",
+        "label": "Pulse duration reason"
+    },
+    {
+        "attr": "xray-opmode-1",
+        "label": "Operating mode 1"
+    },
+    {
+        "attr": "xray-opmode-2",
+        "label": "Operating mode 2"
+    },
+    {
+        "attr": "xray-opmode-3",
+        "label": "Operating mode 3"
+    },
+    {
+        "attr": "xray-opmode-4",
+        "label": "Operating mode 4"
+    },
+    {
+        "attr": "xray-opmode-4",
+        "label": "Operating mode 4"
+    },
+    {
+        "attr": "xray-opmode-descr",
+        "label": "Operating mode, description"
+    },
+    {
+        "attr": "xray-opmode-other",
+        "label": "Operating mode, other"
+    },
+    {
+        "attr": "xray-monochrom",
+        "label": "Monochromator"
+    },
+    {
+        "attr": "xray-bandwidth",
+        "label": "Bandwidth"
+    },
+    {
+        "attr": "xray-energyscan",
+        "label": "Energy scanning"
+    },
+    {
+        "attr": "xray-energyscan-type",
+        "label": "Energy scanning type"
+    },
+    {
+        "attr": "xray-energyscanrange-1",
+        "label": "Energy scanning range 1"
+    },
+    {
+        "attr": "xray-energyscanrange-2",
+        "label": "Energy scanning range 2"
+    },
+    {
+        "attr": "xray-split",
+        "label": "Split_and_delay"
+    },
+    {
+        "attr": "xray-split-other",
+        "label": "Split Other"
+    },
+    {
+        "attr": "xray-other",
+        "label": "XRay other requirements"
+    }
+]

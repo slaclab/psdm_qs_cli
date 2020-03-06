@@ -143,6 +143,7 @@ class QuestionnaireClient:
                 ret.update({'StartDate': urawiData['info']['startDate']})
             if urawiData['info']['stopDate']:
                 ret.update({'EndDate': urawiData['info']['stopDate']})
+            ret.update({"instrument": urawiData["info"]["instrument"]})
             self._updateIfExists(ret, urawiData, "contacts.point_of_contact", "urawi_poc")
             if 'personnel-poc-sci1' in ret:
                 ret["POC"] = ret['personnel-poc-sci1']
@@ -152,6 +153,7 @@ class QuestionnaireClient:
             self._updateIfExists(ret, urawiData, "info.spokesPerson.lastName", "Spokesperson Last")
             self._updateIfExists(ret, urawiData, "info.spokesPerson.email", "Spokesperson Email")
             self._updateIfExists(ret, urawiData, "info.nonURAWI_proposal", "nonURAWI_proposal")
+            self._updateIfExists(ret, urawiData, "info.approved", "Approved")
         else:
             raise Exception("Invalid HTTP status code from server", r.status_code)
         return ret
