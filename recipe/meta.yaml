@@ -10,9 +10,7 @@ source:
 build:
   number: 2
   noarch: python
-  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
   entry_points:
-    - lucid = lucid.launcher:main
     - QSGenerateExcelSpreadSheet.py = psdm_qs_cli.QSGenerateExcelSpreadSheet:main
     - QSGenerateJSON.py = psdm_qs_cli.QSGenerateJSON:main
 
