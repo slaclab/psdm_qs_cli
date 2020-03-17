@@ -54,7 +54,8 @@ def generateExcelSpreadSheetForRun(qs, run, excelFilePath):
     wb.save(excelFilePath)
     print("Saved data into", excelFilePath)
 
-if __name__ == '__main__':
+
+def main():
     parser = argparse.ArgumentParser(description='Load data from the questionnaire into a an Excel spreadsheet')
     parser.add_argument('--questionnaire_url', default="https://pswww.slac.stanford.edu/ws-kerb/questionnaire")
     parser.add_argument('--no_kerberos', action="store_false")
@@ -64,3 +65,7 @@ if __name__ == '__main__':
 
     qs = QuestionnaireClient(args.questionnaire_url, args.no_kerberos)
     generateExcelSpreadSheetForRun(qs, args.run, args.excelFilePath)
+
+
+if __name__ == '__main__':
+    main()

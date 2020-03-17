@@ -1,0 +1,4 @@
+krtc
+six
+requests
+openpyxl

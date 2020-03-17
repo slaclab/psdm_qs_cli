@@ -39,7 +39,8 @@ def generateJSONDocumentForRun(qs, run, useLabels, jsonFilePath):
         json.dump(proposals, f)
     print("Saved data into", jsonFilePath)
 
-if __name__ == '__main__':
+
+def main():
     parser = argparse.ArgumentParser(description='Load data from the questionnaire into a an Excel spreadsheet')
     parser.add_argument('--questionnaire_url', default="https://pswww.slac.stanford.edu/ws-kerb/questionnaire")
     parser.add_argument('--useLabels', action="store_true", help="Use the questionnaire labels as the attribute names.")
@@ -50,3 +51,7 @@ if __name__ == '__main__':
 
     qs = QuestionnaireClient(args.questionnaire_url, args.no_kerberos)
     generateJSONDocumentForRun(qs, args.run, args.useLabels, args.jsonFilePath)
+
+
+if __name__ == '__main__':
+    main()
