@@ -9,12 +9,17 @@ import logging
 import getpass
 from functools import partial
 
-
-from krtc import KerberosTicket
 from six.moves.urllib.parse import urlparse
 
-
 logger = logging.getLogger(__name__)
+
+try:
+    from krtc import KerberosTicket
+except ImportError:
+    KerberosTicket = None
+    logger.warning('krtc not installed: Kerberos ticket-based authentication '
+                   'unavailable.')
+
 
 class QuestionnaireClient:
     """
@@ -42,6 +47,10 @@ class QuestionnaireClient:
 
     def __init__(self, url=None, use_kerberos=True, user=None, pw=None):
         if use_kerberos:
+            if KerberosTicket is None:
+                raise RuntimeError('Kerberos-based authentication unavailable.  '
+                                   'Please install krtc.')
+
             self.questionnaire_url = url or self.kerb_url
             self.krbheaders = KerberosTicket("HTTP@" + urlparse(self.questionnaire_url).hostname).getAuthHeaders()
             self.rget = partial(requests.get, headers=self.krbheaders)
