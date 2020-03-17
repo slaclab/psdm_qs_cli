@@ -1,2 +1,4 @@
 include versioneer.py
 include psdm_qs_cli/_version.py
+include requirements.txt
+include LICENSE
