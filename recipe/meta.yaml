@@ -21,7 +21,7 @@ requirements:
   run:
     - python
     - setuptools
-    - krtc [not win]
+    - krtc   # [not win]
     - requests
     - six
 
