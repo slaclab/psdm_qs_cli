@@ -22,12 +22,14 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SAMPLE_SPREADSHEET_ID = '123shYBqhQCiUVSb5lCMBv8Mx3ziuEkJ-P8E92UuJyeY'
 
 
-def updateGoogleSheetForRun(qs, run, attributes_file, google_sheet_id):
+def updateGoogleSheetForRun(run, attributes_file, google_sheet_id, questionnaire_url="https://pswww.slac.stanford.edu/ws-kerb/questionnaire/", no_kerberos=False, user=None, password=None):
     '''
     Update the specified google sheet with the attributes for the run.
     :param: qs - A Questionnaire client
     :run: The number number/name; this is a string like run15 which is what the questionnaire uses in its URL
     '''
+    qs = QuestionnaireClient(questionnaire_url, no_kerberos, user=user, pw=password)
+
     column2Names = [('proposal_id', "Proposal")]
     with open(attributes_file, 'r') as f:
         attrs = json.load(f)
@@ -71,7 +73,6 @@ def updateGoogleSheetForRun(qs, run, attributes_file, google_sheet_id):
 
     sheet.values().batchUpdate(spreadsheetId=SAMPLE_SPREADSHEET_ID, body=body).execute()
 
-
 def main():
     parser = argparse.ArgumentParser(description='Load data from the questionnaire into a an Excel spreadsheet')
     parser.add_argument('--questionnaire_url', default="https://pswww.slac.stanford.edu/ws-kerb/questionnaire/")
@@ -82,8 +83,7 @@ def main():
     parser.add_argument('attributes_file', help='A JSON file with an array of dicts; each of which has a attrname and a label.')
     args = parser.parse_args()
 
-    qs = QuestionnaireClient(args.questionnaire_url, args.no_kerberos, user=args.user, pw=args.password)
-    updateGoogleSheetForRun(qs, args.run, args.attributes_file, SAMPLE_SPREADSHEET_ID)
+    updateGoogleSheetForRun(args.run, args.attributes_file, SAMPLE_SPREADSHEET_ID, questionnaire_url=args.questionnaire_url, no_kerberos=args.no_kerberos, user=args.user, password=args.password)
 
 
 if __name__ == '__main__':
