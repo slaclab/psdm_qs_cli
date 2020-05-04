@@ -47,8 +47,8 @@ def updateGoogleSheetForRun(run, attributes_file, google_sheet_id, questionnaire
     # Find column names from spreadsheet
     name2ColumnId = { x[1].lower() : x[0] for x in enumerate(sheet.values().get(spreadsheetId=google_sheet_id,range="Sheet1!1:1").execute().get('values', [])[0]) }
     attr2ColumnRef = { x[0] : __col_to_A1__(name2ColumnId[x[1].lower()]) for x in column2Names if  x[1].lower() in name2ColumnId }
-    # Start from row 5; the first proposal ID comes into A5.
-    firstRowForProposals = "5"
+    # Start from row 2; the first proposal ID comes into A5.
+    firstRowForProposals = "2"
 
     cranges = []
     for c in attr2ColumnRef.values():
