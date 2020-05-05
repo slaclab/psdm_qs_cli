@@ -70,7 +70,10 @@ def updateGoogleSheetForRun(run, attributes_file, google_sheet_id, questionnaire
         pvals = []
         for proposalid in sorted(proposals.keys()):
             if attr in proposals[proposalid]:
-                pvals.append(proposals[proposalid][attr])
+                if attr == "proposal_id":
+                    pvals.append('=HYPERLINK(\"https://pswww.slac.stanford.edu/questionnaire_slac/proposal_questionnaire/' + run + '/' + proposals[proposalid][attr] + '/\",\"' + proposals[proposalid][attr] + '\")')
+                else:
+                    pvals.append(proposals[proposalid][attr])
             else:
                 pvals.append("")
         update_data.append({
